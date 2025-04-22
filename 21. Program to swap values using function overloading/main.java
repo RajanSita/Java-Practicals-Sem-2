@@ -1,21 +1,16 @@
 import java.util.Scanner;
 
 public class main {
-    // Function to swap integers
     public static void swap(int[] a, int[] b) {
         int temp = a[0];
         a[0] = b[0];
         b[0] = temp;
     }
-    
-    // Function to swap floats
     public static void swap(float[] a, float[] b) {
         float temp = a[0];
         a[0] = b[0];
         b[0] = temp;
     }
-    
-    // Function to swap characters
     public static void swap(char[] a, char[] b) {
         char temp = a[0];
         a[0] = b[0];
@@ -24,8 +19,6 @@ public class main {
     
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        
-        // Integer swap
         System.out.println("Integer Swap:");
         System.out.print("Enter first integer: ");
         int[] int1 = {scanner.nextInt()};
@@ -36,7 +29,6 @@ public class main {
         swap(int1, int2);
         System.out.println("After swap: int1 = " + int1[0] + ", int2 = " + int2[0]);
         
-        // Float swap
         System.out.println("\nFloat Swap:");
         System.out.print("Enter first float: ");
         float[] float1 = {scanner.nextFloat()};
@@ -47,10 +39,8 @@ public class main {
         swap(float1, float2);
         System.out.println("After swap: float1 = " + float1[0] + ", float2 = " + float2[0]);
         
-        // Clear the input buffer
         scanner.nextLine();
         
-        // Character swap
         System.out.println("\nCharacter Swap:");
         System.out.print("Enter first character: ");
         char[] char1 = {scanner.nextLine().charAt(0)};

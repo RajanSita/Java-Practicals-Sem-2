@@ -1,79 +1,61 @@
+interface Sports {
+    int getSportsGraceMarks();
+}
+
 class Student {
-    protected int rollNo;
-    protected String name;
-    protected int examMarks;
-    
-    public Student(int rollNo, String name, int examMarks) {
-        this.rollNo = rollNo;
+    String name;
+    int rollNo;
+
+    void inputStudent(String name, int rollNo) {
         this.name = name;
-        this.examMarks = examMarks;
+        this.rollNo = rollNo;
     }
-    
-    public void displayStudentInfo() {
-        System.out.println("Roll No: " + rollNo);
+
+    void displayStudent() {
         System.out.println("Name: " + name);
+        System.out.println("Roll No: " + rollNo);
+    }
+}
+class Exam extends Student {
+    int examMarks;
+
+    void inputExamMarks(int marks) {
+        this.examMarks = marks;
+    }
+
+    void displayExamMarks() {
         System.out.println("Exam Marks: " + examMarks);
     }
-    
-    public int getExamMarks() {
-        return examMarks;
-    }
 }
+class Results extends Exam implements Sports {
+    int sportsMarks;
 
-class Sports {
-    protected String sportName;
-    protected int graceMarks;
-    
-    public Sports(String sportName, int graceMarks) {
-        this.sportName = sportName;
-        this.graceMarks = graceMarks;
+    @Override
+    public int getSportsGraceMarks() {
+        return sportsMarks;
     }
-    
-    public void displaySportsInfo() {
-        System.out.println("Sport: " + sportName);
-        System.out.println("Grace Marks: " + graceMarks);
-    }
-    
-    public int getGraceMarks() {
-        return graceMarks;
-    }
-}
 
-class Result extends Student {
-    private Sports sports;
-    private int totalMarks;
-    
-    public Result(int rollNo, String name, int examMarks, String sportName, int graceMarks) {
-        super(rollNo, name, examMarks);
-        this.sports = new Sports(sportName, graceMarks);
-        this.totalMarks = examMarks + graceMarks;
+    void inputSportsMarks(int sportsMarks) {
+        this.sportsMarks = sportsMarks;
     }
-    
-    public void displayResult() {
-        System.out.println("\nStudent Result:");
-        displayStudentInfo();
-        sports.displaySportsInfo();
-        System.out.println("Total Marks (Exam + Grace): " + totalMarks);
+
+    void displayFinalResult() {
+        int finalMarks = examMarks + getSportsGraceMarks();
+        displayStudent();
+        displayExamMarks();
+        System.out.println("Sports Grace Marks: " + sportsMarks);
+        System.out.println("Final Marks: " + finalMarks);
     }
 }
 
 public class main {
     public static void main(String[] args) {
-        // Create a student without sports participation
-        Student student1 = new Student(101, "John Doe", 75);
-        System.out.println("Student Information (Without Sports):");
-        student1.displayStudentInfo();
-        
-        System.out.println("\n-------------------\n");
-        
-        // Create a student with sports participation
-        Result student2 = new Result(102, "Jane Smith", 78, "National Olympics", 5);
-        student2.displayResult();
-        
-        System.out.println("\n-------------------\n");
-        
-        // Create another student with different sports participation
-        Result student3 = new Result(103, "Mike Johnson", 65, "National Games", 3);
-        student3.displayResult();
+        Results rajan = new Results();
+        rajan.inputStudent("Rajan", 101);
+        rajan.inputExamMarks(80);
+        rajan.inputSportsMarks(10);
+
+        System.out.println("--- Final Result ---");
+        rajan.displayFinalResult();
     }
 }

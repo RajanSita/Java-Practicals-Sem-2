@@ -52,18 +52,11 @@ class Dog extends Mammal {
 
 public class main {
     public static void main(String[] args) {
-        // Create a Dog object
         Dog dog = new Dog("Buddy", "Brown", "Golden Retriever");
-        
-        // Methods from Animal class (grandparent)
         dog.eat();
         dog.sleep();
-        
-        // Methods from Mammal class (parent)
         dog.walk();
         dog.displayFurColor();
-        
-        // Methods from Dog class (child)
         dog.bark();
         dog.displayInfo();
     }

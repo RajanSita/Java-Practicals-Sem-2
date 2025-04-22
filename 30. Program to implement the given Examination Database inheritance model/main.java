@@ -1,129 +1,59 @@
-import java.util.Scanner;
-
+// Base Class
 class Person {
-    protected String name;
-    protected int age;
-    protected String address;
+    String name;
+    int age;
 
-    public Person(String name, int age, String address) {
+    void inputPerson(String name, int age) {
         this.name = name;
         this.age = age;
-        this.address = address;
     }
 
-    public void displayInfo() {
+    void displayPerson() {
         System.out.println("Name: " + name);
         System.out.println("Age: " + age);
-        System.out.println("Address: " + address);
     }
 }
 
+// Derived Class (Level 1)
 class Student extends Person {
-    protected int studentId;
-    protected String course;
+    String rollNo;
+    String course;
 
-    public Student(String name, int age, String address, int studentId, String course) {
-        super(name, age, address);
-        this.studentId = studentId;
+    void inputStudent(String rollNo, String course) {
+        this.rollNo = rollNo;
         this.course = course;
     }
 
-    @Override
-    public void displayInfo() {
-        super.displayInfo();
-        System.out.println("Student ID: " + studentId);
+    void displayStudent() {
+        System.out.println("Roll No: " + rollNo);
         System.out.println("Course: " + course);
     }
 }
 
+// Derived Class (Level 2)
 class Exam extends Student {
-    private int examId;
-    private String examName;
-    private int marks;
+    int marks;
 
-    public Exam(String name, int age, String address, int studentId, String course,
-                int examId, String examName, int marks) {
-        super(name, age, address, studentId, course);
-        this.examId = examId;
-        this.examName = examName;
+    void inputExam(int marks) {
         this.marks = marks;
     }
 
-    public void displayExamInfo() {
-        displayInfo();
-        System.out.println("Exam ID: " + examId);
-        System.out.println("Exam Name: " + examName);
-        System.out.println("Marks: " + marks);
+    void displayExam() {
+        displayPerson();
+        displayStudent();
+        System.out.println("Marks Obtained: " + marks);
     }
 }
 
+// Main Class
 public class main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        // Person Input
-        System.out.println("Enter Person Information:");
-        System.out.print("Name: ");
-        String personName = sc.nextLine();
-        System.out.print("Age: ");
-        int personAge = sc.nextInt();
-        sc.nextLine(); // consume newline
-        System.out.print("Address: ");
-        String personAddress = sc.nextLine();
-
-        Person person = new Person(personName, personAge, personAddress);
-        System.out.println("\n--- Person Details ---");
-        person.displayInfo();
-
-        System.out.println("\n-----------------------\n");
-
-        // Student Input
-        System.out.println("Enter Student Information:");
-        System.out.print("Name: ");
-        String studentName = sc.nextLine();
-        System.out.print("Age: ");
-        int studentAge = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Address: ");
-        String studentAddress = sc.nextLine();
-        System.out.print("Student ID: ");
-        int studentId = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Course: ");
-        String studentCourse = sc.nextLine();
-
-        Student student = new Student(studentName, studentAge, studentAddress, studentId, studentCourse);
-        System.out.println("\n--- Student Details ---");
-        student.displayInfo();
-
-        System.out.println("\n-----------------------\n");
-
-        // Exam Input
-        System.out.println("Enter Exam Information:");
-        System.out.print("Name: ");
-        String examName = sc.nextLine();
-        System.out.print("Age: ");
-        int examAge = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Address: ");
-        String examAddress = sc.nextLine();
-        System.out.print("Student ID: ");
-        int examStudentId = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Course: ");
-        String examCourse = sc.nextLine();
-        System.out.print("Exam ID: ");
-        int examId = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Exam Name: ");
-        String examTitle = sc.nextLine();
-        System.out.print("Marks: ");
-        int marks = sc.nextInt();
-
-        Exam exam = new Exam(examName, examAge, examAddress, examStudentId, examCourse, examId, examTitle, marks);
-        System.out.println("\n--- Exam Details ---");
-        exam.displayExamInfo();
-
-        sc.close();
+        Exam exam1 = new Exam();
+        exam1.inputPerson("Rajan", 17);
+        exam1.inputStudent("BCA101", "BCA");
+        exam1.inputExam(88);
+        
+        System.out.println("--- Examination Details ---");
+        exam1.displayExam();
     }
 }

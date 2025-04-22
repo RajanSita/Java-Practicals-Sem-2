@@ -8,20 +8,16 @@ class main {
         System.out.println("File Copy Program");
         System.out.println("================");
         
-        // Get source file path
         System.out.print("Enter source file path: ");
         String sourceFilePath = scanner.nextLine();
         
-        // Get destination file path
         System.out.print("Enter destination file path: ");
         String destFilePath = scanner.nextLine();
         
-        // Copy file content
         try {
             copyFileUsingStreams(sourceFilePath, destFilePath);
             System.out.println("\nFile copied successfully!");
             
-            // Ask if user wants to view the content
             System.out.print("\nDo you want to view the content of the copied file? (y/n): ");
             String response = scanner.nextLine();
             
@@ -35,10 +31,7 @@ class main {
         
         scanner.close();
     }
-    
-    // Method to copy file content using byte streams
     private static void copyFileUsingStreams(String source, String destination) throws IOException {
-        // Using try-with-resources to ensure streams are closed
         try (FileInputStream fis = new FileInputStream(source);
              FileOutputStream fos = new FileOutputStream(destination)) {
             
@@ -46,18 +39,13 @@ class main {
             int bytesRead;
             
             System.out.println("\nCopying file...");
-            
-            // Read from source and write to destination
             while ((bytesRead = fis.read(buffer)) != -1) {
                 fos.write(buffer, 0, bytesRead);
             }
             
-            // Ensure all data is written
             fos.flush();
         }
     }
-    
-    // Method to display file content
     private static void displayFileContent(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

@@ -1,89 +1,57 @@
-import java.util.Scanner;
-
-class main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Enter the number of iterations for each thread: ");
-        int iterations = scanner.nextInt();
-        
-        // Creating three threads
-        Thread thread1 = new Thread(new TaskWithSleep(iterations, 100), "Thread-1");
-        Thread thread2 = new Thread(new TaskWithSleep(iterations, 200), "Thread-2");
-        Thread thread3 = new Thread(new TaskWithSleep(iterations, 300), "Thread-3");
-        
-        System.out.println("Starting all threads...");
-        
-        // Start time measurement
-        long startTime = System.currentTimeMillis();
-        
-        // Starting threads
-        thread1.start();
-        
-        // Wait for thread1 to complete before starting thread2
+class MyThread1 extends Thread {
+    public void run() {
         try {
-            System.out.println("Main thread waiting for " + thread1.getName() + " to complete...");
-            thread1.join();
-            System.out.println(thread1.getName() + " has completed. Starting " + thread2.getName());
+            System.out.println("Thread 1 started");
+            Thread.sleep(2000);
+            System.out.println("Thread 1 finished");
         } catch (InterruptedException e) {
-            System.out.println("Main thread interrupted while waiting for " + thread1.getName());
+            System.out.println(e);
         }
-        
-        thread2.start();
-        
-        // Start thread3 immediately but join later
-        thread3.start();
-        
-        // Wait for both thread2 and thread3 to complete
-        try {
-            System.out.println("Main thread waiting for " + thread2.getName() + " to complete...");
-            thread2.join();
-            System.out.println(thread2.getName() + " has completed.");
-            
-            System.out.println("Main thread waiting for " + thread3.getName() + " to complete...");
-            thread3.join();
-            System.out.println(thread3.getName() + " has completed.");
-        } catch (InterruptedException e) {
-            System.out.println("Main thread interrupted: " + e.getMessage());
-        }
-        
-        // End time measurement
-        long endTime = System.currentTimeMillis();
-        
-        System.out.println("All threads have completed execution.");
-        System.out.println("Total execution time: " + (endTime - startTime) + " ms");
-        
-        scanner.close();
     }
 }
 
-class TaskWithSleep implements Runnable {
-    private final int iterations;
-    private final long sleepTime;
-    
-    public TaskWithSleep(int iterations, long sleepTime) {
-        this.iterations = iterations;
-        this.sleepTime = sleepTime;
-    }
-    
-    @Override
+class MyThread2 extends Thread {
     public void run() {
-        Thread currentThread = Thread.currentThread();
-        System.out.println(currentThread.getName() + " started with sleep time: " + sleepTime + " ms");
-        
-        for (int i = 1; i <= iterations; i++) {
-            System.out.println(currentThread.getName() + " - Iteration " + i + " of " + iterations);
-            
-            try {
-                // Sleep for the specified time
-                System.out.println(currentThread.getName() + " sleeping for " + sleepTime + " ms");
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-                System.out.println(currentThread.getName() + " interrupted: " + e.getMessage());
-                return;
-            }
+        try {
+            System.out.println("Thread 2 started");
+            Thread.sleep(3000);
+            System.out.println("Thread 2 finished");
+        } catch (InterruptedException e) {
+            System.out.println(e);
         }
-        
-        System.out.println(currentThread.getName() + " finished all iterations.");
+    }
+}
+
+class MyThread3 extends Thread {
+    public void run() {
+        try {
+            System.out.println("Thread 3 started");
+            Thread.sleep(1000);
+            System.out.println("Thread 3 finished");
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+}
+
+public class main {
+    public static void main(String[] args) {
+        MyThread1 t1 = new MyThread1();
+        MyThread2 t2 = new MyThread2();
+        MyThread3 t3 = new MyThread3();
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        System.out.println("All threads have finished execution");
     }
 }

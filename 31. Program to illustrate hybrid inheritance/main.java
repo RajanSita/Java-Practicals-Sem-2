@@ -1,94 +1,94 @@
-// Base class
-class A {
-    protected int dataA;
-    
-    public A(int dataA) {
-        this.dataA = dataA;
+class Vehicle {
+    String brand = "Generic Vehicle";
+    void displayBrand() {
+        System.out.println("Vehicle Brand: " + brand);
     }
-    
-    public void displayA() {
-        System.out.println("Class A - Data: " + dataA);
-    }
-}
-
-// First derived class
-class B extends A {
-    protected int dataB;
-    
-    public B(int dataA, int dataB) {
-        super(dataA);
-        this.dataB = dataB;
-    }
-    
-    public void displayB() {
-        displayA();
-        System.out.println("Class B - Data: " + dataB);
+}class LightMotor extends Vehicle {
+    int wheels = 2;
+    void showWheels() {
+        System.out.println("Light Motor Wheels: " + wheels);
     }
 }
 
-// Second derived class
-class C extends A {
-    protected int dataC;
-    
-    public C(int dataA, int dataC) {
-        super(dataA);
-        this.dataC = dataC;
+class GearMotor extends LightMotor {
+    int gears = 5;
+    void showGears() {
+        System.out.println("Gear Motor Gears: " + gears);
     }
-    
-    public void displayC() {
-        displayA();
-        System.out.println("Class C - Data: " + dataC);
+}
+class HeavyMotor extends Vehicle {
+    int capacity = 10;
+    void showCapacity() {
+        System.out.println("Heavy Motor Capacity: " + capacity + " tons");
     }
 }
 
-// Class derived from B and C (using interfaces to simulate multiple inheritance)
-interface D_Interface {
-    void displayD();
+class Passenger extends HeavyMotor {
+    int seats = 40;
+    void showSeats() {
+        System.out.println("Passenger Seats: " + seats);
+    }
 }
 
-class D extends B implements D_Interface {
-    private int dataD;
-    private C c;  // Composition to include C's functionality
-    
-    public D(int dataA, int dataB, int dataC, int dataD) {
-        super(dataA, dataB);
-        this.c = new C(dataA, dataC);
-        this.dataD = dataD;
+class Goods extends HeavyMotor {
+    int load = 1000;
+    void showLoad() {
+        System.out.println("Goods Load: " + load + " kg");
     }
-    
-    public void displayC() {
-        c.displayC();
+}
+interface InternalExam {
+    int internalMarks = 40;
+    void showInternalMarks();
+}
+
+interface ExternalExam {
+    int externalMarks = 60;
+    void showExternalMarks();
+}
+class Student {
+    String name = "Rajan";
+    void showName() {
+        System.out.println("Student Name: " + name);
     }
-    
-    @Override
-    public void displayD() {
-        displayB();
-        System.out.println("Class D - Data: " + dataD);
+}
+class Result extends Student implements InternalExam, ExternalExam {
+    public void showInternalMarks() {
+        System.out.println("Internal Marks: " + internalMarks);
     }
-    
-    public void displayAll() {
-        System.out.println("All data from hierarchy:");
-        displayD();
-        displayC();
+
+    public void showExternalMarks() {
+        System.out.println("External Marks: " + externalMarks);
+    }
+
+    void totalMarks() {
+        System.out.println("Total Marks: " + (internalMarks + externalMarks));
     }
 }
 
 public class main {
     public static void main(String[] args) {
-        System.out.println("Creating object of class A:");
-        A a = new A(10);
-        a.displayA();
-        
-        System.out.println("\nCreating object of class B:");
-        B b = new B(10, 20);
-        b.displayB();
-        
-        System.out.println("\nCreating object of class C:");
-        C c = new C(10, 30);
-        c.displayC();
-        
-        System.out.println("\nCreating object of class D:");
-        D d = new D(10, 20, 30, 40);
-        d.displayAll();
+        System.out.println("--- Multilevel Inheritance ---");
+        GearMotor gm = new GearMotor();
+        gm.displayBrand();
+        gm.showWheels();
+        gm.showGears();
+
+        System.out.println("\n--- Hierarchical Inheritance ---");
+        Passenger p = new Passenger();
+        p.displayBrand();
+        p.showCapacity();
+        p.showSeats();
+
+        Goods g = new Goods();
+        g.displayBrand();
+        g.showCapacity();
+        g.showLoad();
+
+        System.out.println("\n--- Hybrid Inheritance ---");
+        Result r = new Result();
+        r.showName();
+        r.showInternalMarks();
+        r.showExternalMarks();
+        r.totalMarks();
     }
 }

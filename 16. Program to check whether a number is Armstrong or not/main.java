@@ -11,14 +11,12 @@ public class main {
         int sum = 0;
         int digits = 0;
         
-        // Count number of digits
         int temp = number;
         while (temp > 0) {
             temp /= 10;
             digits++;
         }
         
-        // Calculate sum of digits raised to power of number of digits
         temp = number;
         while (temp > 0) {
             int remainder = temp % 10;
